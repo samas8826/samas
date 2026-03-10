@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.A.M.A.S - Shipping Agent's Mailbox Assitant</title>
+
+    <!-- ================================================================ -->
+    <!-- CONFIGURATION SECTION - Edit these values as needed                -->
+    <!-- ================================================================ -->
+    <script>
+        // All email templates and settings are defined here for easy editing
+        const CONFIG = {
+            // Your signature block
+            signature: `
+
+Best Regards,
+Sam Ward
+Norton Lilly International
+Vessel Coordinator - Charleston
+843-685-6509 (M)
+Personal: SWard@nortonlilly.com
+Group: CHS-OPS@nortonlilly.com
+753 Johnnie Dodds Blvd Suite 200, Mount Pleasant, SC 29464
+www.nortonlilly.com`,
+
+            // Common email addresses
+            commonEmails: {
+                ops: "CHS-OPS@NORTONLILLY.COM",
+                pilots: "DISPATCHER@CHARLESTONPILOTS.COM",
+                customs: "GMB-1601OPERATIONALSUPPORT@CBP.DHS.GOV"
+            },
+
+            // Form field definitions
+            fields: {
+                vesselName: {
+                    label: "Vessel Name",
+                    type: "text",
+                    placeholder: "[VESSEL NAME]"
+                },
+		arrivalDate: {
+                    label: "Arrival Date",
+                    type: "text",
+                    placeholder: "[ARRIVAL DATE]"
+                },
+		terminal: {
+                    label: "Terminal",
+                    type: "text",
+                    placeholder: "[TERMINAL]"
+                },
+                vesselEmail: {
+                    label: "Vessel Email",
+                    type: "email",
+                    placeholder: "[VESSEL EMAIL]"
+                },
+		previousPort: {
+                    label: "Previous Port",
+                    type: "text",
+                    placeholder: "[PREVIOUS PORT]"
+                },
+                nextPort: {
+                    label: "Next Port",
+                    type: "text",
+                    placeholder: "[NEXT PORT]"
+                },
+                pob: {
+                    label: "POB",
+                    type: "text",
+                    placeholder: "[POB]"
+                },
+                etb: {
+                    label: "ETB",
+                    type: "text",
+                    placeholder: "[ETB]"
+                },
+                ops: {
+                    label: "OPS",
+                    type: "text",
+                    placeholder: "[OPS]"
+                },
+                etd: {
+                    label: "ETD",
+                    type: "text",
+                    placeholder: "[ETD]"
+                },
+                crewArrival: {
+                    label: "Number of Crew on Arrival",
+                    type: "text",
+                    placeholder: "[CREW ARRIVAL]"
+                },
+                passengersArrival: {
+                    label: "Number of Passengers on Arrival",
+                    type: "text",
+                    placeholder: "[PAX ARRIVAL]"
+                },
+                crewDeparture: {
+                    label: "Number of Crew on Departure",
+                    type: "text",
+                    placeholder: "[CREW DEPARTURE]"
+                },
+                passengersDeparture: {
+                    label: "Number of Passengers on Departure",
+                    type: "text",
+                    placeholder: "[PAX DEPARTURE]"
+                },
+                arrivalDraftForward: {
+                    label: "Arrival Draft Forward",
+                    type: "text",
+                    placeholder: "[FWD DRAFT]"
+                },
+                arrivalDraftAft: {
+                    label: "Arrival Draft Aft",
+                    type: "text",
+                    placeholder: "[AFT DRAFT]"
+                },
+                arrivalDraftAir: {
+                    label: "Arrival Draft Air",
+                    type: "text",
+                    placeholder: "[AIR DRAFT]"
+                },
+		departureDraftForward: {
+                    label: "Departure Draft Forward",
+                    type: "text",
+                    placeholder: "[FWD DRAFT]"
+                },
+                departureDraftAft: {
+                    label: "Departure Draft Aft",
+                    type: "text",
+                    placeholder: "[AFT DRAFT]"
+                },
+                departureDraftAir: {
+                    label: "Departure Draft Air",
+                    type: "text",
+                    placeholder: "[AIR DRAFT]"
+                },
+		fairwaterCall: {
+                    label: "FW Call #",
+                    type: "text",
+                    placeholder: "[CALL #]"
+                },
+		planner: {
+    			label: "Planner / Port Captain",
+    			type: "text",
+    			placeholder: "[PLANNER]"
+		},
+		plannerPhone: {
+    			label: "Planner Phone #",
+    			type: "text",
+    			placeholder: "[PLANNER #]"
+		},
+		plannerEmail: {
+    			label: "Planner Email / Group Email",
+    			type: "email",
+    			placeholder: "[PLANNER EMAIL; GROUP EMAIL]"
+		},
+		bond: {
+                    label: "Bond #",
+                    type: "text",
+                    placeholder: "[BOND]"
+                },
+                service: {
+                    label: "Service",
+                    type: "text",
+                    placeholder: "[SERVICE]"
+                },
+		scac: {
+    			label: "SCAC Codes",
+    			type: "email",
+    			placeholder: "[SCAC]"
+		},
+		enoa: {
+                    label: "ENOA",
+                    type: "text",
+                    placeholder: "[ENOA]"
+                },
+		noticeofArrival: {
+                    label: "Notice of Arrival",
+                    type: "text",
+                    placeholder: "[N of A]"
+                },
+                arrivalReport: {
+                    label: "Arrival Report",
+                    type: "email",
+                    placeholder: "[ARRIVAL REPORT]"
+                },
+		vesselCertificates: {
+                    label: "Vessel Certificates",
+                    type: "text",
+                    placeholder: "[VESSEL CERTS]"
+                },
+                storesEffects: {
+                    label: "Stores / Effects",
+                    type: "text",
+                    placeholder: "[CSV]"
+                },
+                entrance: {
+                    label: "Entrance",
+                    type: "text",
+                    placeholder: "[ENTER]"
+                },
+                clearance: {
+                    label: "Clearance",
+                    type: "text",
+                    placeholder: "[CLEAR]"
+                },
+                specialPermits: {
+                    label: "Special Permits",
+                    type: "text",
+                    placeholder: "[S.P.]"
+                },
+                arrivalDrafts: {
+                    label: "Arrival Drafts",
+                    type: "text",
+                    placeholder: "[CONFIRM ARRIVAL DRAFT]"
+                },
+                coastwiseEmpties: {
+                    label: "Coastwise Empties",
+                    type: "text",
+                    placeholder: "[CHECK FOR CW MTYS]"
+                },
+                customsLogin: {
+                    label: "Customs Login",
+                    type: "text",
+                    placeholder: "[CUSTOMS LOGIN]"
+                },
+                orders: {
+                    label: "ORDERS",
+                    type: "text",
+                    placeholder: "[SEND ORDERS]"
+                },
+                berth: {
+                    label: "Berthing Assignment / Footmark",
+                    type: "text",
+                    placeholder: "[BERTH]"
+                },
+                preArrivalMessage: {
+                    label: "Pre-Arrival Message",
+                    type: "text",
+                    placeholder: "[PRE ARR]"
+                },
+                spoQQ: {
+                    label: "SPO / QQ",
+                    type: "text",
+                    placeholder: "[SPO / QQ]"
+                },
+                agentAttendance: {
+                    label: "Agent Attendance",
+                    type: "text",
+                    placeholder: "[AA]"
+                },
+		shorePass: {
+    			label: "Shore Pass",
+    			type: "text",
+    			placeholder: "[I-95]"
+		},
+		ownersItem1: {
+                    label: "Owners Item 1",
+                    type: "text",
+                    placeholder: "N/A"
+                },
+                ownersItem2: {
+                    label: "Owners Item 2",
+                    type: "text",
+                    placeholder: "N/A"
+                },
+		ownersItem3: {
+                    label: "Owners Item 3",
+                    type: "text",
+                    placeholder: "N/A"
+                },
+		departureDate: {
+                    label: "Departure Date",
+                    type: "text",
+                    placeholder: "DEPARTURE DATE"
+                }
+            },
+
+            // Email templates
+            templates: [
+		{
+                    id: 1,
+                    name: "Required Documents",
+                    subject: "{{field 'vesselName'}} - REQUIRED DOCUMENTS - CHARLESTON, SC",
+                    to: "{{field 'vesselEmail'}}",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day Captain,
+ 
+In view of your upcoming call to Charleston, please revert with electronic copies of the following required documents. Note, CSV files for stores & effects are required for new eVECS system for CBP. Thank you.
+
+PORT PAPERS
+•	SHIP STORES.csv (attached) **WITH FUEL FIGURES ON THEM**PER CBP REQUIREMENTS IN CHS**
+•	CREW EFFECTS.csv (attached)`
+                },
+		{
+                    id: 2,
+                    name: "Port Rotation / Crew",
+                    subject: "{{field 'vesselName'}} - PORT ROTATION / CREW - CHARLESTON, SC",
+                    to: "{{field 'vesselEmail'}}",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day Captain,
+
+Please confirm the following for accurate reporting to Customs Authorities in Charleston. Thank you.
+
+Previous Port: {{field "previousPort"}}
+Next Port: {{field "nextPort"}}
+No. of Crew on Arrival: {{field "crewArrival"}}
+No. of Crew on Departure: {{field "crewDeparture"}}
+No. of Passengers on Arrival: {{field "passengersArrival"}}
+No. of Passengers on Departure: {{field "passengersDeparture"}}
+No. of Crew OFF/ON: -- / --
+No. of Pax OFF/ON: -- / --`
+                },
+		{
+                    id: 3,
+                    name: "Arrival Drafts",
+                    subject: "{{field 'vesselName'}} - ARRIVAL DRAFTS - CHARLESTON, SC",
+                    to: "{{field 'vesselEmail'}}",
+                    cc: "CHS-OPS@NORTONLILLY.COM; DISPATCHER@CHARLESTONPILOTS.COM; {{field 'plannerEmail'}}",
+                    template: `Good day Captain,
+
+Please confirm Arrival Drafts (FW) including Air Draft (SW) for Charleston as soon as known. Thank you.
+
+Draft FWD: {{field "arrivalDraftForward"}}m
+Draft AFT: {{field "arrivalDraftAft"}}m
+Draft AIR: {{field "arrivalDraftAir"}}m`
+                },
+		{
+                    id: 4,
+                    name: "Coastwise Empties",
+                    subject: "{{field 'vesselName'}} - COASTWISE EMPTIES - CHARLESTON, SC",
+                    to: "CSC@NORTONLILLY.COM; WWTCLERKS@CSC-SC.COM; NCTCLERKS@CSC-SC.COM",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day,
+
+Please advise if there are any coastwise empties loading or discharging on the {{field "vesselName"}} as soon as known. If so please send us a list of same so we can submit to customs to avoid fines / penalties. Thank you.`
+                },
+		{
+                    id: 5,
+                    name: "Customs Login",
+                    subject: "{{field 'vesselName'}} - CUSTOMS LOGIN - CHARLESTON, SC",
+                    to: "GMB-1601OPERATIONALSUPPORT@CBP.DHS.GOV; 1601PASSENGEROPS@CBP.DHS.GOV; charlestonairport@cbp.dhs.gov",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day,
+
+Please see the below vessel for {{field "arrivalDate"}}
+
+Vessel - {{field "vesselName"}}
+Coastwise Arrival
+Terminal - {{field "terminal"}}
+ETA - {{field "etb"}}
+Working - {{field "ops"}}
+ETD - {{field "etd"}}
+Load - Yes
+Discharge - Yes
+Last Port - {{field "previousPort"}}
+Next Port - {{field "nextPort"}}
+VECS - ONLINE {{field "arrivalDate"}}`
+                },
+                {
+                    id: 6,
+                    name: "Orders",
+                    subject: "{{field 'vesselName'}} - ORDERS - CHARLESTON, SC",
+                    to: "DISPATCHER@CHARLESTONPILOTS.COM; CPSOPS@BELLSOUTH.NET; DCAUSEY1@BELLSOUTH.NET; CHARLESTONOPERATIONS@MORANTUG.COM; DISPATCHSC@MCALLISTERTOWING.COM",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day,
+
+Please see attached orders for the subject vessel. Thank you.`
+                },
+		{
+                    id: 7,
+                    name: "Pre-Arrival Message",
+                    subject: "{{field 'vesselName'}} - PRE ARRIVAL MESSAGE - CHARLESTON, SC",
+                    to: "{{field 'vesselEmail'}}",
+                    cc: "CHS-OPS@NORTONLILLY.COM; {{field 'plannerEmail'}}",
+                    template: ``
+                },
+		{
+                    id: 8,
+                    name: "Arrival Timings / Conditions",
+                    subject: "{{field 'vesselName'}} - ARRIVAL TIMINGS / CONDITIONS - CHARLESTON, SC",
+                    to: "{{field 'vesselEmail'}}",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day Captain,
+ 
+Please find attached contact list/TWIC Certified Taxi List and revert with the following for arrival/departure Charleston once known.
+Kindly advise if you will have any outgoing packages to be collected or anything else you require agent attendance for, thank you.
+
+Vessel Cell #:
+
+Previous Port: {{field "previousPort"}}
+Next Port: {{field "nextPort"}}
+ETA Next Port: ---
+No. of Crew on Arrival: {{field "crewArrival"}}
+No. of Crew on Departure: {{field "crewDeparture"}}
+No. of Passengers on Arrival: {{field "passengersArrival"}}
+No. of Passengers on Departure: {{field "passengersDeparture"}}
+No. of Crew OFF/ON: -- / --
+No. of Pax OFF/ON: -- / --
+EOSP:
+POB:
+No. of tugs:
+First Line Ashore:
+All Fast:
+Draft FWD:
+Draft AFT:
+HSFO:
+MDO:
+FW:
+Estimated Dep. Draft FWD:
+Estimated Dep. Draft AFT:
+Estimated Dep. Air Draft:
+Estimated Dep. HSFO:
+Estimated Dep. MDO:
+Estimated Dep. FW:`
+                },
+                {
+                    id: 9,
+                    name: "NLI Doucument for Signature",
+                    subject: "{{field 'vesselName'}} - NLI DOCUMENT FOR SIGNATURE - CHARLESTON, SC",
+                    to: "{{field 'vesselEmail'}}",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day Captain,
+
+Please find attached NLI document from your call to Charleston.
+
+Please sign / stamp and revert.
+
+Thank you.`
+                },
+		{
+                    id: 10,
+                    name: "Departure Update",
+                    subject: "{{field 'vesselName'}} - DEPARTURE UPDATE - CHARLESTON, SC",
+                    to: "{{field 'vesselEmail'}}",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day Captain,
+
+Please note departure pilot is tentatively planned for -
+Ops expect to complete by -
+
+Reverting with updates.`
+                },
+		{
+                    id: 11,
+                    name: "NLI Agent On Duty",
+                    subject: "{{field 'vesselName'}} - NLI AGENT ON DUTY - CHARLESTON, SC",
+                    to: "{{field 'vesselEmail'}}",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Good day Captain, 
+
+Please note your NLI boarding agent and 24hr POC for Charleston will be – 
+
+Landon Wisener: (Mobile/WhatsApp) +1 (843) 810-9725; lwisener@nortonlilly.com
+Berfu Dogan: (Mobile/WhatsApp) +1 (843) 608-5200; bdogan@nortonlilly.com 
+David Livingston: (Mobile/WhatsApp) +1 (843) 666-4255; dlivingston@nortonlilly.com 
+Herman Miller: (Mobile/WhatsApp) +1 (843) 637-1548; hmiller@nortonlilly.com 
+Christine Dsouza: (Mobile/WhatsApp) +1 (843) 296-2001; cdsouza@nortonlilly.com 
+
+Please ensure to copy our office address on all communications: chs-ops@nortonlilly.com 
+
+Kindly advise if you will have any outgoing packages to be collected or anything else you may require agent attendance onboard for.
+Additionally, please advise best phone # for agent to contact vessel for updates. 
+
+Thank you.`
+                },
+                {
+                    id: 12,
+                    name: "Handover",
+                    subject: "{{field 'vesselName'}} - HANDOVER - CHARLESTON, SC",
+                    to: "CHS-OPS@NORTONLILLY.COM",
+                    cc: "CHS-OPS@NORTONLILLY.COM",
+                    template: `Please see detailed COR handover below for --- : 
+
+{{field "vesselName"}} / {{field "berth"}}
+{{field "orders"}} SIDE TO
+POB {{field "pob"}} / OPS {{field "ops"}} / ETD {{field "etd"}}
+PREV: {{field "previousPort"}} / NEXT: {{field "nextPort"}}
+# OF CREW ARRIVAL/DEP: {{field "crewArrival"}} / {{field "crewDeparture"}}
+# OF PAX ARRIVAL/DEP: {{field "passengersArrival"}} / {{field "passengersDeparture"}}
+ARRIVAL DRAFTS: FWD {{field "arrivalDraftForward"}}m / AFT {{field "arrivalDraftAft"}}m / AIR {{field "arrivalDraftAir"}}m
+DEPARTURE DRAFTS: FWD {{field "departureDraftForward"}}m / AFT {{field "departureDraftAft"}}m / AIR {{field "departureDraftAir"}}m
+VESSEL EMAIL/PHONE#: {{field 'vesselEmail'}}
+PLANNER INFORMATION: {{field 'planner'}} <{{field 'plannerPhone'}}> {{field 'plannerEmail'}}
+ENOA: {{field "enoa"}} // ARRIVAL IN ACE: {{field "arrivalReport"}} // BOND# {{field "bond"}} // SCAC: {{field "scac"}}
+STORES / EFFECTS: {{field "storesEffects"}}
+COASTWISE EMPTIES: {{field "coastwiseEmpties"}}
+**OWNERS ITEMS <ATTACH NECESSARY EMAILS>
+{{field "ownersItem1"}}
+{{field "ownersItem2"}}
+{{field "ownersItem3"}}`
+                }
+            ]
+        };
+    </script>
+
+    <!-- ================================================================ -->
+    <!-- Application Dependencies - Don't modify below this line            -->
+    <!-- ================================================================ -->
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ocean': {
+                            50: '#e6f0f7',
+                            100: '#cce0ee',
+                            200: '#99c2dd',
+                            300: '#66a3cc',
+                            400: '#3385bb',
+                            500: '#0066aa',
+                            600: '#005288',
+                            700: '#003d66',
+                            800: '#002944',
+                            900: '#001422',
+                        }
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: linear-gradient(to right, #0066aa, #3385bb);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-ocean-100 to-gray-200 min-h-screen">
+    <!-- Sticky Header -->
+    <header class="sticky-header text-white text-center py-4 shadow-md">
+        <h1 class="text-3xl font-bold">s. a. m. a. s</h1>
+        <p class="text-lg">SHIPPING AGENT MAILBOX ASSISTANT</p>
+    </header>
+
+<body class="bg-gradient-to-br from-ocean-100 to-gray-200 min-h-screen">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Register Handlebars helper for empty field handling
+        Handlebars.registerHelper('field', function (fieldName) {
+            return formData[fieldName] || CONFIG.fields[fieldName].placeholder;
+        });
+
+        function App() {
+            const [formData, setFormData] = React.useState(
+    		Object.fromEntries(
+        		Object.keys(CONFIG.fields).map(key => [key, ''])
+    		)
+	);
+
+	const [templateToggles, setTemplateToggles] = React.useState(
+    		Object.fromEntries(CONFIG.templates.map(template => [template.id, true])) // Default all toggles to true
+	);
+	const handleToggleChange = (id) => {
+    		setTemplateToggles(prev => ({
+        		...prev,
+        		[id]: !prev[id] // Toggle the value for the given template ID
+    		}));
+	};
+
+            // Make formData available globally for the Handlebars helper
+            window.formData = formData;
+
+            const handleInputChange = (e) => {
+                const { name, value } = e.target;
+                setFormData(prev => {
+                    const newData = {
+                        ...prev,
+                        [name]: value
+                    };
+                    window.formData = newData;
+                    return newData;
+                });
+            };
+	const handleTabDelimitedInput = (e) => {
+    const input = e.target.value;
+    const fieldNames = Object.keys(CONFIG.fields);
+    const values = input.split("\t");
+
+    const updatedData = fieldNames.reduce((acc, fieldName, index) => {
+        acc[fieldName] = values[index] || ''; // Assign value or empty string if missing
+        return acc;
+    }, {});
+
+    setFormData(updatedData);
+    window.formData = updatedData; // Update global formData
+};
+            const handleReset = () => {
+                setFormData(
+                    Object.fromEntries(
+                        Object.keys(CONFIG.fields).map(key => [key, ''])
+                    )
+                );
+		document.querySelector('textarea').value = ''; // Clear QuickFill field
+		window.formData = {}; // Reset global formData
+            };
+
+            // Compile templates once
+            const compiledTemplates = React.useMemo(() => {
+                return CONFIG.templates.map(template => {
+                    const fullTemplate = template.template + CONFIG.signature;
+                    return {
+                        ...template,
+                        compiledSubject: Handlebars.compile(template.subject),
+                        compiledTemplate: Handlebars.compile(fullTemplate)
+                    };
+                });
+            }, []);
+
+            const createMailtoLink = (template) => {
+                const subject = encodeURIComponent(template.compiledSubject());
+                const body = encodeURIComponent(template.compiledTemplate());
+                const to = Handlebars.compile(template.to)(formData);
+                const cc = Handlebars.compile(template.cc)(formData);
+                return `mailto:${to}?cc=${cc}&subject=${subject}&body=${body}`;
+            };
+
+            const handleOpenAllEmails = () => {
+    		compiledTemplates
+        		.filter(template => templateToggles[template.id]) // Only include enabled templates
+        		.forEach((template, index) => {
+            			setTimeout(() => {
+                			window.open(createMailtoLink(template), '_blank');
+            			}, index * 500); // 500ms delay between each email
+        		});
+		};
+
+            return (
+                <div className="container mx-auto px-4 py-12 max-w-6xl">
+		<div className="mb-8">
+    <label className="block text-sm font-medium text-ocean-700 mb-2">
+        QuickFill
+    </label>
+    <textarea
+        onChange={handleTabDelimitedInput}
+        className="w-full px-4 py-2.5 border border-ocean-200 rounded-lg 
+                   focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400
+                   placeholder-gray-400 transition-colors duration-200"
+        placeholder="Paste from Checklist"
+        rows="3"
+    ></textarea>
+</div>
+                    {/* Input Form */}
+                    <div className="bg-white rounded-xl shadow-lg p-8 mb-10 border border-ocean-100">
+                        <h2 className="text-2xl font-semibold text-ocean-800 mb-6">Ship Details</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {Object.entries(CONFIG.fields).map(([fieldName, config]) => (
+                                <div key={fieldName}>
+                                    <label className="block text-sm font-medium text-ocean-700 mb-2">
+                                        {config.label}
+                                    </label>
+                                    <input
+                                        type={config.type}
+                                        name={fieldName}
+                                        value={formData[fieldName]}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-2.5 border border-ocean-200 rounded-lg 
+                                                 focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400
+                                                 placeholder-gray-400 transition-colors duration-200"
+                                        placeholder={config.placeholder}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+			{/* Global Toggles */}
+<div className="bg-white rounded-xl shadow-lg p-4 mb-6 border border-ocean-100">
+    <h2 className="text-xl font-semibold text-ocean-800 mb-4">Select Email Templates</h2>
+    {/* Select All Toggle */}
+    <div className="flex items-center space-x-3 mb-4">
+        <input
+            type="checkbox"
+            checked={Object.values(templateToggles).every(Boolean)}
+            onChange={(e) => {
+                const isChecked = e.target.checked;
+                setTemplateToggles(Object.fromEntries(
+                    CONFIG.templates.map(template => [template.id, isChecked])
+                ));
+            }}
+            className="toggle-checkbox"
+        />
+        <label className="text-sm font-medium text-ocean-700">
+            Select All
+        </label>
+    </div>
+    {/* Individual Toggles */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {CONFIG.templates.map(template => (
+            <div key={template.id} className="flex items-center space-x-3">
+                <input
+                    type="checkbox"
+                    checked={templateToggles[template.id]}
+                    onChange={() => handleToggleChange(template.id)}
+                    className="toggle-checkbox"
+                />
+                <label className="text-sm font-medium text-ocean-700">
+                    {template.name}
+                </label>
+            </div>
+        ))}
+    </div>
+</div>
+                        <div className="mt-8 flex justify-between items-center">
+                            <button
+                                onClick={handleOpenAllEmails}
+                                className="bg-ocean-600 hover:bg-ocean-700 text-white px-6 py-2.5 rounded-lg
+                                         transition-colors duration-200 font-medium flex items-center gap-2"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                                </svg>
+                                Open All Email Drafts
+                            </button>
+                            <button
+                                onClick={handleReset}
+                                className="bg-ocean-100 text-ocean-700 hover:bg-ocean-200 px-6 py-2.5 rounded-lg
+                                         transition-colors duration-200 font-medium"
+                            >
+                                Reset Form
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Template Preview */}
+                    <h2 className="text-2xl font-semibold text-ocean-800 mb-6">Email Templates</h2>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {compiledTemplates.map((template) => (
+                            <div key={template.id}
+                                className="bg-white rounded-xl shadow-lg p-6 border border-ocean-100
+                                          transition-shadow duration-200">
+                                <div className="flex justify-between items-center mb-5">
+    					<h3 className="text-xl font-semibold text-ocean-700">{template.name}</h3>
+    					<label className="flex items-center space-x-3">
+        					<span className="text-sm text-gray-700"></span>
+        					<input
+            						type="checkbox"
+            						checked={templateToggles[template.id]}
+            						onChange={() => handleToggleChange(template.id)}
+            						className="toggle-checkbox"
+        					/>
+    					</label>
+    					<a
+        					href={createMailtoLink(template)}
+        					className="bg-ocean-600 hover:bg-ocean-700 text-white px-5 py-2.5 rounded-lg
+                    transition-colors duration-200 font-medium flex items-center gap-2"
+    					>
+        					Open in Email Client
+    					</a>
+				</div>
+
+                                <div className="space-y-4">
+                                    {/* Display To and CC fields */}
+                                    <div>
+                                        <div className="text-sm font-medium text-ocean-600 mb-1">To:</div>
+                                        <div className="text-gray-700 bg-ocean-50/50 p-3 rounded-lg">{Handlebars.compile(template.to)()}</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-sm font-medium text-ocean-600 mb-1">CC:</div>
+                                        <div className="text-gray-700 bg-ocean-50/50 p-3 rounded-lg">{Handlebars.compile(template.cc)()}</div>
+                                    </div>
+                                    {/* Display Subject */}
+                                    <div>
+                                        <div className="text-sm font-medium text-ocean-600 mb-1">Subject:</div>
+                                        <div className="text-gray-700 bg-ocean-50/50 p-3 rounded-lg">{template.compiledSubject()}</div>
+                                    </div>
+                                    {/* Display Body */}
+                                    <div>
+                                        <div className="text-sm font-medium text-ocean-600 mb-1">Body:</div>
+                                        <div className="whitespace-pre-wrap text-gray-700 bg-ocean-50/50 p-4 rounded-lg">{template.compiledTemplate()}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
