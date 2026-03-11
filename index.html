@@ -678,6 +678,38 @@ return "DISPATCHER@CHARLESTONPILOTS.COM";
 	const [templateToggles, setTemplateToggles] = React.useState(
     		Object.fromEntries(CONFIG.templates.map(template => [template.id, true])) // Default all toggles to true
 	);
+    React.useEffect(() => {
+
+const params = new URLSearchParams(window.location.search);
+const quickFillData = params.get("qf");
+
+if (!quickFillData) return;
+
+const decoded = decodeURIComponent(quickFillData);
+const values = decoded.split("\t");
+
+const fieldNames = Object.keys(CONFIG.fields);
+
+const updatedData = fieldNames.reduce((acc, fieldName, index) => {
+
+    let value = values[index] || '';
+
+    // Normalize tug names so dropdown works
+    if (fieldName === "tugs") {
+        const lower = value.toLowerCase();
+        if (lower.includes("moran")) value = "Moran";
+        if (lower.includes("mcallister")) value = "McAllister";
+    }
+
+    acc[fieldName] = value;
+    return acc;
+
+}, {});
+
+setFormData(updatedData);
+window.formData = updatedData;
+
+}, []);
 	const handleToggleChange = (id) => {
     		setTemplateToggles(prev => ({
         		...prev,
