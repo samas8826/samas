@@ -60,10 +60,11 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[ARRIVAL DATE]"
                 },
-		terminal: {
+                terminal: {
                     label: "Terminal",
-                    type: "text",
-                    placeholder: "[WWT , NCT]"
+                    type: "select",
+                    options: ["WWT", "NCT", "HLT"],
+                    placeholder: "[SELECT TERMINAL]"
                 },
                 vesselEmail: {
                     label: "Vessel Email",
@@ -184,6 +185,12 @@ www.nortonlilly.com`,
                     label: "Service",
                     type: "text",
                     placeholder: "[SERVICE]"
+                },
+                tugs: {
+                    label: "TUGS",
+                    type: "select",
+                    options: ["Moran", "McAllister"],
+                    placeholder: "[TUG COMPANY]"
                 },
 		scac: {
     			label: "SCAC Codes",
@@ -382,7 +389,7 @@ VECS - ONLINE {{field "arrivalDate"}}`
                     id: 6,
                     name: "Orders",
                     subject: "{{field 'vesselName'}} - ORDERS - CHARLESTON, SC",
-                    to: "DISPATCHER@CHARLESTONPILOTS.COM; CPSOPS@BELLSOUTH.NET; DCAUSEY1@BELLSOUTH.NET; CHARLESTONOPERATIONS@MORANTUG.COM; DISPATCHSC@MCALLISTERTOWING.COM",
+                    to: "{{tugCompanyEmail}}",
                     cc: "CHS-OPS@NORTONLILLY.COM",
                     template: `Good day,
 
@@ -630,19 +637,37 @@ Port Operations Email Automation
 });
 
 Handlebars.registerHelper('terminalClerks', function () {
-    const terminal = (formData.terminal || "").toUpperCase();
 
-    if (terminal.includes("WWT")) {
-        return "CSC@NORTONLILLY.COM; WWTCLERKS@CSC-SC.COM";
-    }
+const terminal = (formData.terminal || "").toUpperCase();
 
-    if (terminal.includes("NCT")) {
-        return "CSC@NORTONLILLY.COM; NCTCLERKS@CSC-SC.COM";
-    }
+if (terminal === "WWT") {
+    return "CSC@NORTONLILLY.COM; WWTCLERKS@CSC-SC.COM";
+}
 
-    return "CSC@NORTONLILLY.COM";
+if (terminal === "NCT") {
+    return "CSC@NORTONLILLY.COM; NCTCLERKS@CSC-SC.COM";
+}
+
+if (terminal === "HLT") {
+    return "CSC@NORTONLILLY.COM; HLTCLERKS@CSC-SC.COM";
+}
+
+return "CSC@NORTONLILLY.COM";
 });
+Handlebars.registerHelper('tugCompanyEmail', function () {
 
+const tug = (formData.tugs || "").toLowerCase();
+
+if (tug.includes("moran")) {
+    return "DISPATCHER@CHARLESTONPILOTS.COM; CPSOPS@BELLSOUTH.NET; DCAUSEY1@BELLSOUTH.NET; CHARLESTONOPERATIONS@MORANTUG.COM";
+}
+
+if (tug.includes("mcallister")) {
+    return "DISPATCHER@CHARLESTONPILOTS.COM; CPSOPS@BELLSOUTH.NET; DCAUSEY1@BELLSOUTH.NET; DISPATCHSC@MCALLISTERTOWING.COM";
+}
+
+return "DISPATCHER@CHARLESTONPILOTS.COM";
+});
         function App() {
             const [formData, setFormData] = React.useState(
     		Object.fromEntries(
@@ -807,25 +832,41 @@ Handlebars.registerHelper('terminalClerks', function () {
             <h2 className="text-2xl font-semibold text-ocean-800 mb-6">Ship Details</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {Object.entries(CONFIG.fields).map(([fieldName, config]) => (
-                    <div key={fieldName}>
-                        <label className="block text-sm font-medium text-ocean-700 mb-2">
-                            {config.label}
-                        </label>
+{Object.entries(CONFIG.fields).map(([fieldName, config]) => (
+    <div key={fieldName}>
+        <label className="block text-sm font-medium text-ocean-700 mb-2">
+            {config.label}
+        </label>
 
-                        <input
-                            type={config.type}
-                            name={fieldName}
-                            value={formData[fieldName]}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-2.5 border border-ocean-200 rounded-lg 
-                                     focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400
-                                     placeholder-gray-400 transition-colors duration-200"
-                            placeholder={config.placeholder}
-                        />
-                    </div>
+        {config.type === "select" ? (
+            <select
+                name={fieldName}
+                value={formData[fieldName]}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2.5 border border-ocean-200 rounded-lg 
+                focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400"
+            >
+                <option value="">{config.placeholder}</option>
+                {config.options.map(option => (
+                    <option key={option} value={option}>{option}</option>
                 ))}
-            </div>
+            </select>
+        ) : (
+            <input
+                type={config.type}
+                name={fieldName}
+                value={formData[fieldName]}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2.5 border border-ocean-200 rounded-lg 
+                focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400
+                placeholder-gray-400 transition-colors duration-200"
+                placeholder={config.placeholder}
+            />
+        )}
+
+    </div>
+))}
+</div>
         </div>
 
         {/* Template Preview */}
@@ -860,7 +901,7 @@ Handlebars.registerHelper('terminalClerks', function () {
                         <div>
                             <div className="text-sm font-medium text-ocean-600 mb-1">CC:</div>
                             <div className="text-gray-700 bg-ocean-50/50 p-3 rounded-lg">
-                                {Handlebars.compile(template.cc)()}
+                                {Handlebars.compile(template.cc)(formData)}
                             </div>
                         </div>
 
