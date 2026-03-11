@@ -668,16 +668,19 @@ if (tug.includes("mcallister")) {
 
 return "DISPATCHER@CHARLESTONPILOTS.COM";
 });
-        function App() {
-            const [formData, setFormData] = React.useState(
-    		Object.fromEntries(
-        		Object.keys(CONFIG.fields).map(key => [key, ''])
-    		)
-	);
+function App() {
 
-	const [templateToggles, setTemplateToggles] = React.useState(
-    		Object.fromEntries(CONFIG.templates.map(template => [template.id, true])) // Default all toggles to true
-	);
+const [formData, setFormData] = React.useState(
+    Object.fromEntries(
+        Object.keys(CONFIG.fields).map(key => [key, ''])
+    )
+);
+
+const [quickFillText, setQuickFillText] = React.useState('');
+
+const [templateToggles, setTemplateToggles] = React.useState(
+    Object.fromEntries(CONFIG.templates.map(template => [template.id, true]))
+);
     React.useEffect(() => {
 
 const params = new URLSearchParams(window.location.search);
@@ -686,6 +689,9 @@ const quickFillData = params.get("qf");
 if (!quickFillData) return;
 
 const decoded = decodeURIComponent(quickFillData);
+
+setQuickFillText(decoded);
+
 const values = decoded.split("\t");
 
 const fieldNames = Object.keys(CONFIG.fields);
@@ -769,7 +775,7 @@ return acc;
                         Object.keys(CONFIG.fields).map(key => [key, ''])
                     )
                 );
-		document.querySelector('textarea').value = ''; // Clear QuickFill field
+                setQuickFillText(''); // Clear QuickFill field
 		window.formData = {}; // Reset global formData
             };
 
@@ -808,18 +814,24 @@ return acc;
 
         {/* QuickFill */}
         <div className="mb-8">
-            <label className="block text-sm font-medium text-ocean-700 mb-2">
-                QuickFill
-            </label>
-            <textarea
-                onChange={handleTabDelimitedInput}
-                className="w-full px-4 py-2.5 border border-ocean-200 rounded-lg 
-                           focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400
-                           placeholder-gray-400 transition-colors duration-200"
-                placeholder="Paste from Checklist"
-                rows="3"
-            ></textarea>
-        </div>
+    <label className="block text-sm font-medium text-ocean-700 mb-2">
+        QuickFill
+    </label>
+
+    <textarea
+        value={quickFillText}
+        onChange={(e) => {
+            setQuickFillText(e.target.value);
+            handleTabDelimitedInput(e);
+        }}
+        className="w-full px-4 py-2.5 border border-ocean-200 rounded-lg 
+        focus:outline-none focus:ring-2 focus:ring-ocean-400 focus:border-ocean-400
+        placeholder-gray-400 transition-colors duration-200"
+        placeholder="Paste from Checklist"
+        rows="3"
+    />
+
+</div>
 
         {/* Template Toggles + Buttons */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-10 border border-ocean-100">
