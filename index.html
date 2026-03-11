@@ -342,11 +342,11 @@ Draft AFT: {{field "arrivalDraftAft"}}m
 Draft AIR: {{field "arrivalDraftAir"}}m`
                 },
 		{
-                    id: 4,
-                    name: "Coastwise Empties",
-                    subject: "{{field 'vesselName'}} - COASTWISE EMPTIES - CHARLESTON, SC",
-                    to: "CSC@NORTONLILLY.COM; WWTCLERKS@CSC-SC.COM; NCTCLERKS@CSC-SC.COM",
-                    cc: "CHS-OPS@NORTONLILLY.COM",
+            id: 4,
+    name: "Coastwise Empties",
+    subject: "{{field 'vesselName'}} - COASTWISE EMPTIES - CHARLESTON, SC",
+    to: "{{terminalClerks}}",
+    cc: "CHS-OPS@NORTONLILLY.COM",
                     template: `Good day,
 
 Please advise if there are any coastwise empties loading or discharging on the {{field "vesselName"}} as soon as known. If so please send us a list of same so we can submit to customs to avoid fines / penalties. Thank you.`
@@ -622,8 +622,22 @@ Port Operations Email Automation
     <script type="text/babel">
         // Register Handlebars helper for empty field handling
         Handlebars.registerHelper('field', function (fieldName) {
-            return formData[fieldName] || CONFIG.fields[fieldName].placeholder;
-        });
+    return formData[fieldName] || CONFIG.fields[fieldName].placeholder;
+});
+
+Handlebars.registerHelper('terminalClerks', function () {
+    const terminal = (formData.terminal || "").toUpperCase();
+
+    if (terminal.includes("WWT")) {
+        return "CSC@NORTONLILLY.COM; WWTCLERKS@CSC-SC.COM";
+    }
+
+    if (terminal.includes("NCT")) {
+        return "CSC@NORTONLILLY.COM; NCTCLERKS@CSC-SC.COM";
+    }
+
+    return "CSC@NORTONLILLY.COM";
+});
 
         function App() {
             const [formData, setFormData] = React.useState(
