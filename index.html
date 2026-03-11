@@ -70,6 +70,11 @@ www.nortonlilly.com`,
                     type: "email",
                     placeholder: "[VESSEL EMAIL]"
                 },
+                vesselPhone: {
+                    label: "Vessel Phone",
+                    type: "text",
+                    placeholder: "[VESSEL PHONE]"
+                },
 		previousPort: {
                     label: "Previous Port",
                     type: "text",
@@ -496,7 +501,7 @@ PREV: {{field "previousPort"}} / NEXT: {{field "nextPort"}}
 # OF PAX ARRIVAL/DEP: {{field "passengersArrival"}} / {{field "passengersDeparture"}}
 ARRIVAL DRAFTS: FWD {{field "arrivalDraftForward"}}m / AFT {{field "arrivalDraftAft"}}m / AIR {{field "arrivalDraftAir"}}m
 DEPARTURE DRAFTS: FWD {{field "departureDraftForward"}}m / AFT {{field "departureDraftAft"}}m / AIR {{field "departureDraftAir"}}m
-VESSEL EMAIL/PHONE#: {{field 'vesselEmail'}}
+VESSEL EMAIL/PHONE#: {{field 'vesselEmail'}} / {{field 'vesselPhone'}}
 PLANNER INFORMATION: {{field 'planner'}} <{{field 'plannerPhone'}}> {{field 'plannerEmail'}}
 ENOA: {{field "enoa"}} // ARRIVAL IN ACE: {{field "arrivalReport"}} // BOND# {{field "bond"}} // SCAC: {{field "scac"}}
 STORES / EFFECTS: {{field "storesEffects"}}
