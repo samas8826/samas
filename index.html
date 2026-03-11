@@ -16,11 +16,11 @@
             signature: `
 
 Best Regards,
-Sam Ward
+{{field "agentName"}}
 Norton Lilly International
 Vessel Coordinator - Charleston
-843-685-6509 (M)
-Personal: SWard@nortonlilly.com
+{{field "agentPhone"}} (M)
+Personal: {{field "agentEmail"}}
 Group: CHS-OPS@nortonlilly.com
 753 Johnnie Dodds Blvd Suite 200, Mount Pleasant, SC 29464
 www.nortonlilly.com`,
@@ -34,11 +34,27 @@ www.nortonlilly.com`,
 
             // Form field definitions
             fields: {
-                vesselName: {
-                    label: "Vessel Name",
-                    type: "text",
-                    placeholder: "[VESSEL NAME]"
-                },
+                agentName: {
+        label: "Agent Name",
+        type: "text",
+        placeholder: "[AGENT NAME]"
+    },
+    agentPhone: {
+        label: "Agent Phone",
+        type: "text",
+        placeholder: "[AGENT PHONE]"
+    },
+    agentEmail: {
+        label: "Agent Email",
+        type: "email",
+        placeholder: "[AGENT EMAIL]"
+    },
+
+    vesselName: {
+        label: "Vessel Name",
+        type: "text",
+        placeholder: "[VESSEL NAME]"
+    },
 		arrivalDate: {
                     label: "Arrival Date",
                     type: "text",
