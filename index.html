@@ -62,8 +62,8 @@ www.nortonlilly.com`,
                 },
 		terminal: {
                     label: "Terminal",
-                    type: "text",
-                    placeholder: "[TERMINAL]"
+                    type: "select",
+                    options: ["NCT", "WWT"]
                 },
                 vesselEmail: {
                     label: "Vessel Email",
@@ -616,7 +616,6 @@ Port Operations Email Automation
 
 </header>
 
-<body class="bg-gradient-to-br from-ocean-100 to-gray-200 min-h-screen">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -719,7 +718,7 @@ Handlebars.registerHelper('terminalClerks', function () {
         		.forEach((template, index) => {
             			setTimeout(() => {
                 			window.open(createMailtoLink(template), '_blank');
-            			}, index * 500); // 500ms delay between each email
+            			}, index * 800); // 800ms delay between each email
         		});
 		};
 
@@ -849,7 +848,7 @@ Handlebars.registerHelper('terminalClerks', function () {
                         <div>
                             <div className="text-sm font-medium text-ocean-600 mb-1">To:</div>
                             <div className="text-gray-700 bg-ocean-50/50 p-3 rounded-lg">
-                                {Handlebars.compile(template.to)()}
+                                {Handlebars.compile(template.to)(formData)}
                             </div>
                         </div>
 
