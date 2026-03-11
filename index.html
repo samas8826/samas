@@ -705,9 +705,28 @@ return "DISPATCHER@CHARLESTONPILOTS.COM";
     const values = input.split("\t");
 
     const updatedData = fieldNames.reduce((acc, fieldName, index) => {
-        acc[fieldName] = values[index] || ''; // Assign value or empty string if missing
-        return acc;
-    }, {});
+
+let value = values[index] || '';
+
+// Normalize tug company names
+if (fieldName === "tugs") {
+
+    const lower = value.toLowerCase();
+
+    if (lower.includes("moran")) {
+        value = "Moran";
+    }
+
+    if (lower.includes("mcallister")) {
+        value = "McAllister";
+    }
+}
+
+acc[fieldName] = value;
+
+return acc;
+
+}, {});
 
     setFormData(updatedData);
     window.formData = updatedData; // Update global formData
