@@ -16,11 +16,11 @@
             signature: `
 
 Best Regards,
-{{field "agentName"}}
+{{field "corName"}}
 Norton Lilly International
 Vessel Coordinator - Charleston
-{{field "agentPhone"}} (M)
-Personal: {{field "agentEmail"}}
+{{field "corPhone"}} (M)
+Personal: {{field "corEmail"}}
 Group: CHS-OPS@nortonlilly.com
 753 Johnnie Dodds Blvd Suite 200, Mount Pleasant, SC 29464
 www.nortonlilly.com`,
@@ -34,20 +34,20 @@ www.nortonlilly.com`,
 
             // Form field definitions
             fields: {
-                agentName: {
-        label: "Agent Name",
+                corName: {
+        label: "Coordinator Name",
         type: "text",
-        placeholder: "[AGENT NAME]"
+        placeholder: "[COR NAME]"
     },
-    agentPhone: {
-        label: "Agent Phone",
+    corPhone: {
+        label: "Coordinator Phone",
         type: "text",
-        placeholder: "[AGENT PHONE]"
+        placeholder: "[COR PHONE]"
     },
-    agentEmail: {
-        label: "Agent Email",
+    corEmail: {
+        label: "Coordinator Email",
         type: "email",
-        placeholder: "[AGENT EMAIL]"
+        placeholder: "[COR EMAIL]"
     },
 
     vesselName: {
@@ -111,20 +111,40 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[CREW ARRIVAL]"
                 },
-                passengersArrival: {
-                    label: "Number of Passengers on Arrival",
-                    type: "text",
-                    placeholder: "[PAX ARRIVAL]"
-                },
                 crewDeparture: {
                     label: "Number of Crew on Departure",
                     type: "text",
                     placeholder: "[CREW DEPARTURE]"
                 },
-                passengersDeparture: {
+                paxArrival: {
+                    label: "Number of Passengers on Arrival",
+                    type: "text",
+                    placeholder: "[PAX ARRIVAL]"
+                },
+                paxDeparture: {
                     label: "Number of Passengers on Departure",
                     type: "text",
                     placeholder: "[PAX DEPARTURE]"
+                },
+                crewOn: {
+                    label: "Crew Embarking",
+                    type: "text",
+                    placeholder: "[CREW ON]"
+                },
+                crewOff: {
+                    label: "Crew Disembarking",
+                    type: "text",
+                    placeholder: "[CREW OFF]"
+                },
+                paxOn: {
+                    label: "Passengers Embarking",
+                    type: "text",
+                    placeholder: "[PAX ON]"
+                },
+                paxOff: {
+                    label: "Passengers Disembarking",
+                    type: "text",
+                    placeholder: "[PAX OFF]"
                 },
                 arrivalDraftForward: {
                     label: "Arrival Draft Forward",
@@ -141,7 +161,7 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[AIR DRAFT]"
                 },
-		departureDraftForward: {
+		        departureDraftForward: {
                     label: "Departure Draft Forward",
                     type: "text",
                     placeholder: "[FWD DRAFT]"
@@ -194,7 +214,7 @@ www.nortonlilly.com`,
                 },
 		scac: {
     			label: "SCAC Codes",
-    			type: "email",
+    			type: "text",
     			placeholder: "[SCAC]"
 		},
 		enoa: {
@@ -232,16 +252,11 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[CLEAR]"
                 },
-                specialPermits: {
-                    label: "Special Permits",
-                    type: "text",
-                    placeholder: "[S.P.]"
-                },
-                arrivalDrafts: {
-                    label: "Arrival Drafts",
-                    type: "text",
-                    placeholder: "[CONFIRM ARRIVAL DRAFT]"
-                },
+                shorePass: {
+    			    label: "Shore Pass",
+    			    type: "text",
+    			    placeholder: "[I-95]"
+		        },
                 coastwiseEmpties: {
                     label: "Coastwise Empties",
                     type: "text",
@@ -258,9 +273,14 @@ www.nortonlilly.com`,
                     placeholder: "[SEND ORDERS]"
                 },
                 berth: {
-                    label: "Berthing Assignment / Footmark",
+                    label: "Berthing Assignment",
                     type: "text",
                     placeholder: "[BERTH]"
+                },
+                footmark: {
+                    label: "Footmark",
+                    type: "text",
+                    placeholder: "[FTMK]"
                 },
                 preArrivalMessage: {
                     label: "Pre-Arrival Message",
@@ -272,16 +292,11 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[SPO / QQ]"
                 },
-                agentAttendance: {
-                    label: "Agent Attendance",
+                boardingAgent: {
+                    label: "Boarding Agent",
                     type: "text",
-                    placeholder: "[AA]"
+                    placeholder: "[BA]"
                 },
-		shorePass: {
-    			label: "Shore Pass",
-    			type: "text",
-    			placeholder: "[I-95]"
-		},
 		ownersItem1: {
                     label: "Owners Item 1",
                     type: "text",
@@ -334,10 +349,10 @@ Previous Port: {{field "previousPort"}}
 Next Port: {{field "nextPort"}}
 No. of Crew on Arrival: {{field "crewArrival"}}
 No. of Crew on Departure: {{field "crewDeparture"}}
-No. of Passengers on Arrival: {{field "passengersArrival"}}
-No. of Passengers on Departure: {{field "passengersDeparture"}}
-No. of Crew OFF/ON: -- / --
-No. of Pax OFF/ON: -- / --`
+No. of Passengers on Arrival: {{field "paxArrival"}}
+No. of Passengers on Departure: {{field "paxDeparture"}}
+No. of Crew OFF/ON: {{field "crewOff"}} / {{field "crewOn"}}
+No. of Pax OFF/ON: {{field "paxOff"}} / {{field "paxOn"}}`
                 },
 		{
                     id: 3,
@@ -421,17 +436,18 @@ Next Port: {{field "nextPort"}}
 ETA Next Port: ---
 No. of Crew on Arrival: {{field "crewArrival"}}
 No. of Crew on Departure: {{field "crewDeparture"}}
-No. of Passengers on Arrival: {{field "passengersArrival"}}
-No. of Passengers on Departure: {{field "passengersDeparture"}}
-No. of Crew OFF/ON: -- / --
-No. of Pax OFF/ON: -- / --
+No. of Passengers on Arrival: {{field "paxArrival"}}
+No. of Passengers on Departure: {{field "paxDeparture"}}
+No. of Crew OFF/ON: {{field "crewOff"}} / {{field "crewOn"}}
+No. of Pax OFF/ON: {{field "paxOff"}} / {{field "paxOn"}}
 EOSP:
 POB:
 No. of tugs:
 First Line Ashore:
 All Fast:
-Draft FWD:
-Draft AFT:
+Draft FWD: {{field "arrivalDraftForward"}}m
+Draft AFT: {{field "arrivalDraftAft"}}m
+Draft AIR: {{field "arrivalDraftAir"}}m
 HSFO:
 MDO:
 FW:
@@ -500,12 +516,12 @@ Thank you.`
                     cc: "CHS-OPS@NORTONLILLY.COM",
                     template: `Please see detailed COR handover below for --- : 
 
-{{field "vesselName"}} / {{field "berth"}}
+{{field "vesselName"}} / {{field "terminal"}} {{field "berth"}} {{field "footmark"}}
 {{field "orders"}} SIDE TO
 POB {{field "pob"}} / OPS {{field "ops"}} / ETD {{field "etd"}}
 PREV: {{field "previousPort"}} / NEXT: {{field "nextPort"}}
-# OF CREW ARRIVAL/DEP: {{field "crewArrival"}} / {{field "crewDeparture"}}
-# OF PAX ARRIVAL/DEP: {{field "passengersArrival"}} / {{field "passengersDeparture"}}
+# OF CREW ARRIVAL/DEP: {{field "crewArrival"}} / {{field "crewDeparture"}} ({{field "crewOff"}} OFF / {{field "crewOn"}} ON)
+# OF PAX ARRIVAL/DEP: {{field "paxArrival"}} / {{field "paxDeparture"}} ({{field "paxOff"}} OFF / {{field "paxOn"}} ON)
 ARRIVAL DRAFTS: FWD {{field "arrivalDraftForward"}}m / AFT {{field "arrivalDraftAft"}}m / AIR {{field "arrivalDraftAir"}}m
 DEPARTURE DRAFTS: FWD {{field "departureDraftForward"}}m / AFT {{field "departureDraftAft"}}m / AIR {{field "departureDraftAir"}}m
 VESSEL EMAIL/PHONE#: {{field 'vesselEmail'}} / {{field 'vesselPhone'}}
