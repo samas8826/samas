@@ -34,37 +34,10 @@ www.nortonlilly.com`,
 
             // Form field definitions
             fields: {
-                corName: {
-        label: "Coordinator Name",
-        type: "text",
-        placeholder: "[COR NAME]"
-    },
-    corPhone: {
-        label: "Coordinator Phone",
-        type: "text",
-        placeholder: "[COR PHONE]"
-    },
-    corEmail: {
-        label: "Coordinator Email",
-        type: "email",
-        placeholder: "[COR EMAIL]"
-    },
-
-    vesselName: {
-        label: "Vessel Name",
-        type: "text",
-        placeholder: "[VESSEL NAME]"
-    },
-		arrivalDate: {
-                    label: "Arrival Date",
+                vesselName: {
+                    label: "Vessel Name",
                     type: "text",
-                    placeholder: "[ARRIVAL DATE]"
-                },
-                terminal: {
-                    label: "Terminal",
-                    type: "select",
-                    options: ["WWT", "NCT", "HLT"],
-                    placeholder: "[SELECT TERMINAL]"
+                    placeholder: "[VESSEL NAME]"
                 },
                 vesselEmail: {
                     label: "Vessel Email",
@@ -76,7 +49,28 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[VESSEL PHONE]"
                 },
-		previousPort: {
+		        arrivalDate: {
+                    label: "Arrival Date",
+                    type: "text",
+                    placeholder: "[ARRIVAL DATE]"
+                },
+                terminal: {
+                    label: "Terminal",
+                    type: "select",
+                    options: ["WWT", "NCT", "HLT"],
+                    placeholder: "[SELECT TERMINAL]"
+                },
+                berth: {
+                    label: "Berthing Assignment",
+                    type: "text",
+                    placeholder: "[BERTH]"
+                },
+                footmark: {
+                    label: "Footmark",
+                    type: "text",
+                    placeholder: "[FTMK]"
+                },
+		        previousPort: {
                     label: "Previous Port",
                     type: "text",
                     placeholder: "[PREVIOUS PORT]"
@@ -86,26 +80,47 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[NEXT PORT]"
                 },
-                pob: {
-                    label: "POB",
+                fairwaterCall: {
+                    label: "FW Call #",
                     type: "text",
-                    placeholder: "[POB]"
+                    placeholder: "[CALL #]"
                 },
-                etb: {
-                    label: "ETB",
+		        planner: {
+    			    label: "Planner / Port Captain",
+    			    type: "text",
+    			    placeholder: "[PLANNER]"
+		        },
+		        plannerPhone: {
+    			    label: "Planner Phone #",
+    			    type: "text",
+    			    placeholder: "[PLANNER #]"
+		        },
+		        plannerEmail: {
+    			    label: "Planner Email / Group Email",
+    			    type: "email",
+    			    placeholder: "[PLANNER EMAIL; GROUP EMAIL]"
+		        },
+		        bond: {
+                    label: "Bond #",
                     type: "text",
-                    placeholder: "[ETB]"
+                    placeholder: "[BOND]"
                 },
-                ops: {
-                    label: "OPS",
+                service: {
+                    label: "Service",
                     type: "text",
-                    placeholder: "[OPS]"
+                    placeholder: "[SERVICE]"
                 },
-                etd: {
-                    label: "ETD",
-                    type: "text",
-                    placeholder: "[ETD]"
+                tugs: {
+                    label: "TUGS",
+                    type: "select",
+                    options: ["Moran", "McAllister"],
+                    placeholder: "[TUG COMPANY]"
                 },
+		        scac: {
+    			    label: "SCAC Codes",
+    			    type: "text",
+    			    placeholder: "[SCAC]"
+		        },
                 crewArrival: {
                     label: "Number of Crew on Arrival",
                     type: "text",
@@ -146,6 +161,26 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[PAX OFF]"
                 },
+                pob: {
+                    label: "POB",
+                    type: "text",
+                    placeholder: "[POB]"
+                },
+                etb: {
+                    label: "ETB",
+                    type: "text",
+                    placeholder: "[ETB]"
+                },
+                ops: {
+                    label: "OPS",
+                    type: "text",
+                    placeholder: "[OPS]"
+                },
+                etd: {
+                    label: "ETD",
+                    type: "text",
+                    placeholder: "[ETD]"
+                },
                 arrivalDraftForward: {
                     label: "Arrival Draft Forward",
                     type: "text",
@@ -176,53 +211,12 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[AIR DRAFT]"
                 },
-		fairwaterCall: {
-                    label: "FW Call #",
-                    type: "text",
-                    placeholder: "[CALL #]"
-                },
-		planner: {
-    			label: "Planner / Port Captain",
-    			type: "text",
-    			placeholder: "[PLANNER]"
-		},
-		plannerPhone: {
-    			label: "Planner Phone #",
-    			type: "text",
-    			placeholder: "[PLANNER #]"
-		},
-		plannerEmail: {
-    			label: "Planner Email / Group Email",
-    			type: "email",
-    			placeholder: "[PLANNER EMAIL; GROUP EMAIL]"
-		},
-		bond: {
-                    label: "Bond #",
-                    type: "text",
-                    placeholder: "[BOND]"
-                },
-                service: {
-                    label: "Service",
-                    type: "text",
-                    placeholder: "[SERVICE]"
-                },
-                tugs: {
-                    label: "TUGS",
-                    type: "select",
-                    options: ["Moran", "McAllister"],
-                    placeholder: "[TUG COMPANY]"
-                },
-		scac: {
-    			label: "SCAC Codes",
-    			type: "text",
-    			placeholder: "[SCAC]"
-		},
-		enoa: {
+		        enoa: {
                     label: "ENOA",
                     type: "text",
                     placeholder: "[ENOA]"
                 },
-		noticeofArrival: {
+		        noticeofArrival: {
                     label: "Notice of Arrival",
                     type: "text",
                     placeholder: "[N of A]"
@@ -232,7 +226,7 @@ www.nortonlilly.com`,
                     type: "email",
                     placeholder: "[ARRIVAL REPORT]"
                 },
-		vesselCertificates: {
+		        vesselCertificates: {
                     label: "Vessel Certificates",
                     type: "text",
                     placeholder: "[VESSEL CERTS]"
@@ -272,32 +266,42 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[SEND ORDERS]"
                 },
-                berth: {
-                    label: "Berthing Assignment",
-                    type: "text",
-                    placeholder: "[BERTH]"
-                },
-                footmark: {
-                    label: "Footmark",
-                    type: "text",
-                    placeholder: "[FTMK]"
-                },
                 preArrivalMessage: {
                     label: "Pre-Arrival Message",
                     type: "text",
                     placeholder: "[PRE ARR]"
-                },
-                spoQQ: {
-                    label: "SPO / QQ",
-                    type: "text",
-                    placeholder: "[SPO / QQ]"
                 },
                 boardingAgent: {
                     label: "Boarding Agent",
                     type: "text",
                     placeholder: "[BA]"
                 },
-		ownersItem1: {
+                baPhone: {
+                    label: "Boarding Agent Phone",
+                    type: "text",
+                    placeholder: "[BA PHONE]"
+                },
+                baEmail: {
+                    label: "Boarding Agent Email",
+                    type: "email",
+                    placeholder: "[BA EMAIL]"
+                },
+                corName: {
+                    label: "Coordinator Name",
+                    type: "text",
+                    placeholder: "[COR NAME]"
+                },
+                corPhone: {
+                    label: "Coordinator Phone",
+                    type: "text",
+                    placeholder: "[COR PHONE]"
+                },
+                corEmail: {
+                    label: "Coordinator Email",
+                    type: "email",
+                    placeholder: "[COR EMAIL]"
+                },
+		        ownersItem1: {
                     label: "Owners Item 1",
                     type: "text",
                     placeholder: "N/A"
@@ -307,18 +311,27 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "N/A"
                 },
-		ownersItem3: {
-                    label: "Owners Item 3",
+		        note1: {
+                    label: "Note 1",
                     type: "text",
                     placeholder: "N/A"
                 },
-		departureDate: {
+                note2: {
+                    label: "Note 2",
+                    type: "text",
+                    placeholder: "N/A"
+                },
+		        departureDate: {
                     label: "Departure Date",
                     type: "text",
                     placeholder: "DEPARTURE DATE"
+                },
+                spoQQ: {
+                    label: "SPO / QQ",
+                    type: "text",
+                    placeholder: "[SPO / QQ]"
                 }
             },
-
             // Email templates
             templates: [
 		{
@@ -495,11 +508,7 @@ Reverting with updates.`
 
 Please note your NLI boarding agent and 24hr POC for Charleston will be – 
 
-Landon Wisener: (Mobile/WhatsApp) +1 (843) 810-9725; lwisener@nortonlilly.com
-Berfu Dogan: (Mobile/WhatsApp) +1 (843) 608-5200; bdogan@nortonlilly.com 
-David Livingston: (Mobile/WhatsApp) +1 (843) 666-4255; dlivingston@nortonlilly.com 
-Herman Miller: (Mobile/WhatsApp) +1 (843) 637-1548; hmiller@nortonlilly.com 
-Christine Dsouza: (Mobile/WhatsApp) +1 (843) 296-2001; cdsouza@nortonlilly.com 
+{{field "boardingAgent"}}: {{field "baPhone"}}; {{field "baEmail"}}
 
 Please ensure to copy our office address on all communications: chs-ops@nortonlilly.com 
 
@@ -532,7 +541,8 @@ COASTWISE EMPTIES: {{field "coastwiseEmpties"}}
 **OWNERS ITEMS <ATTACH NECESSARY EMAILS>
 {{field "ownersItem1"}}
 {{field "ownersItem2"}}
-{{field "ownersItem3"}}`
+{{field "note1"}}
+{{field "note2"}}`
                 }
             ]
         };
