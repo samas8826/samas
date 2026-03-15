@@ -34,6 +34,17 @@ www.nortonlilly.com`,
 
             // Form field definitions
             fields: {
+                arrivalDate: {
+                    label: "Arrival Date",
+                    type: "text",
+                    placeholder: "[ARRIVAL DATE]"
+                },
+                terminal: {
+                    label: "Terminal",
+                    type: "select",
+                    options: ["WWT", "NCT", "HLT"],
+                    placeholder: "[SELECT TERMINAL]"
+                },
                 vesselName: {
                     label: "Vessel Name",
                     type: "text",
@@ -48,37 +59,6 @@ www.nortonlilly.com`,
                     label: "Vessel Phone",
                     type: "text",
                     placeholder: "[VESSEL PHONE]"
-                },
-		        arrivalDate: {
-                    label: "Arrival Date",
-                    type: "text",
-                    placeholder: "[ARRIVAL DATE]"
-                },
-                terminal: {
-                    label: "Terminal",
-                    type: "select",
-                    options: ["WWT", "NCT", "HLT"],
-                    placeholder: "[SELECT TERMINAL]"
-                },
-                berth: {
-                    label: "Berthing Assignment",
-                    type: "text",
-                    placeholder: "[BERTH]"
-                },
-                footmark: {
-                    label: "Footmark",
-                    type: "text",
-                    placeholder: "[FTMK]"
-                },
-		        previousPort: {
-                    label: "Previous Port",
-                    type: "text",
-                    placeholder: "[PREVIOUS PORT]"
-                },
-                nextPort: {
-                    label: "Next Port",
-                    type: "text",
-                    placeholder: "[NEXT PORT]"
                 },
                 fairwaterCall: {
                     label: "FW Call #",
@@ -100,11 +80,6 @@ www.nortonlilly.com`,
     			    type: "email",
     			    placeholder: "[PLANNER EMAIL; GROUP EMAIL]"
 		        },
-		        bond: {
-                    label: "Bond #",
-                    type: "text",
-                    placeholder: "[BOND]"
-                },
                 service: {
                     label: "Service",
                     type: "text",
@@ -121,6 +96,21 @@ www.nortonlilly.com`,
     			    type: "text",
     			    placeholder: "[SCAC]"
 		        },
+                bond: {
+                    label: "Bond #",
+                    type: "text",
+                    placeholder: "[BOND]"
+                },
+                previousPort: {
+                    label: "Previous Port",
+                    type: "text",
+                    placeholder: "[PREVIOUS PORT]"
+                },
+                nextPort: {
+                    label: "Next Port",
+                    type: "text",
+                    placeholder: "[NEXT PORT]"
+                },
                 crewArrival: {
                     label: "Number of Crew on Arrival",
                     type: "text",
@@ -160,6 +150,41 @@ www.nortonlilly.com`,
                     label: "Passengers Disembarking",
                     type: "text",
                     placeholder: "[PAX OFF]"
+                },
+                enoa: {
+                    label: "ENOA",
+                    type: "text",
+                    placeholder: "[ENOA]"
+                },
+		        noticeofArrival: {
+                    label: "Notice of Arrival",
+                    type: "text",
+                    placeholder: "[N of A]"
+                },
+                vesselCertificates: {
+                    label: "Vessel Certificates",
+                    type: "text",
+                    placeholder: "[VESSEL CERTS]"
+                },
+                arrivalReport: {
+                    label: "Arrival Report",
+                    type: "email",
+                    placeholder: "[ARRIVAL REPORT]"
+                },
+                orders: {
+                    label: "ORDERS",
+                    type: "text",
+                    placeholder: "[SEND ORDERS]"
+                },
+                berth: {
+                    label: "Berthing Assignment",
+                    type: "text",
+                    placeholder: "[BERTH]"
+                },
+                footmark: {
+                    label: "Footmark",
+                    type: "text",
+                    placeholder: "[FTMK]"
                 },
                 pob: {
                     label: "POB",
@@ -211,65 +236,40 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[AIR DRAFT]"
                 },
-		        enoa: {
-                    label: "ENOA",
+                preArrivalMessage: {
+                    label: "Pre-Arrival Message",
                     type: "text",
-                    placeholder: "[ENOA]"
-                },
-		        noticeofArrival: {
-                    label: "Notice of Arrival",
-                    type: "text",
-                    placeholder: "[N of A]"
-                },
-                arrivalReport: {
-                    label: "Arrival Report",
-                    type: "email",
-                    placeholder: "[ARRIVAL REPORT]"
-                },
-		        vesselCertificates: {
-                    label: "Vessel Certificates",
-                    type: "text",
-                    placeholder: "[VESSEL CERTS]"
-                },
-                storesEffects: {
-                    label: "Stores / Effects",
-                    type: "text",
-                    placeholder: "[CSV]"
-                },
-                entrance: {
-                    label: "Entrance",
-                    type: "text",
-                    placeholder: "[ENTER]"
-                },
-                clearance: {
-                    label: "Clearance",
-                    type: "text",
-                    placeholder: "[CLEAR]"
-                },
-                shorePass: {
-    			    label: "Shore Pass",
-    			    type: "text",
-    			    placeholder: "[I-95]"
-		        },
-                coastwiseEmpties: {
-                    label: "Coastwise Empties",
-                    type: "text",
-                    placeholder: "[CHECK FOR CW MTYS]"
+                    placeholder: "[PRE ARR]"
                 },
                 customsLogin: {
                     label: "Customs Login",
                     type: "text",
                     placeholder: "[CUSTOMS LOGIN]"
                 },
-                orders: {
-                    label: "ORDERS",
+                coastwiseEmpties: {
+                    label: "Coastwise Empties",
                     type: "text",
-                    placeholder: "[SEND ORDERS]"
+                    placeholder: "[CHECK FOR CW MTYS]"
                 },
-                preArrivalMessage: {
-                    label: "Pre-Arrival Message",
+                shorePass: {
+    			    label: "Shore Pass",
+    			    type: "text",
+    			    placeholder: "[I-95]"
+		        },
+                entrance: {
+                    label: "Entrance",
                     type: "text",
-                    placeholder: "[PRE ARR]"
+                    placeholder: "[ENTER]"
+                },
+                storesEffects: {
+                    label: "Stores / Effects",
+                    type: "text",
+                    placeholder: "[CSV]"
+                },
+                clearance: {
+                    label: "Clearance",
+                    type: "text",
+                    placeholder: "[CLEAR]"
                 },
                 boardingAgent: {
                     label: "Boarding Agent",
