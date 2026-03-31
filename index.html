@@ -150,11 +150,6 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[AIR DRAFT]"
                 },
-                arrived: {
-                    label: "Arrival Report Sent",
-                    type: "checkbox",
-                    placeholder: "[ARRIVED]"
-                },
 		        departureDraftForward: {
                     label: "Departure Draft Forward",
                     type: "text",
@@ -170,21 +165,6 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[AIR DRAFT]"
                 },
-                sailed: {
-                    label: "Departure Report Sent",
-                    type: "checkbox",
-                    placeholder: "[SAILED]"
-                },
-                departureDate: {
-                    label: "Departure Date",
-                    type: "text",
-                    placeholder: "DEPARTURE DATE"
-                },
-                fairwaterCall: {
-                    label: "FW Call #",
-                    type: "text",
-                    placeholder: "[CALL #]"
-                },
                 vesselEmail: {
                     label: "Vessel Email",
                     type: "email",
@@ -194,17 +174,6 @@ www.nortonlilly.com`,
                     label: "Vessel Phone",
                     type: "text",
                     placeholder: "[VESSEL PHONE]"
-                },
-                service: {
-                    label: "Service",
-                    type: "text",
-                    placeholder: "[SERVICE]"
-                },
-                tugs: {
-                    label: "TUGS",
-                    type: "select",
-                    options: ["Moran", "McAllister"],
-                    placeholder: "[TUG COMPANY]"
                 },
 		        planner: {
     			    label: "Planner / Port Captain",
@@ -221,46 +190,11 @@ www.nortonlilly.com`,
     			    type: "email",
     			    placeholder: "[PLANNER EMAIL; GROUP EMAIL]"
 		        },
-                corName: {
-                    label: "Coordinator Name",
-                    type: "text",
-                    placeholder: "[COR NAME]"
-                },
-                corPhone: {
-                    label: "Coordinator Phone",
-                    type: "text",
-                    placeholder: "[COR PHONE]"
-                },
-                corEmail: {
-                    label: "Coordinator Email",
-                    type: "email",
-                    placeholder: "[COR EMAIL]"
-                },
-                preArrivalMessage: {
-                    label: "Pre-Arrival Message",
-                    type: "text",
-                    placeholder: "[PRE ARR]"
-                },
-                orders: {
-                    label: "ORDERS",
-                    type: "text",
-                    placeholder: "[SEND ORDERS]"
-                },
-                customsLogin: {
-                    label: "Customs Login",
-                    type: "text",
-                    placeholder: "[CUSTOMS LOGIN]"
-                },
                 coastwiseEmpties: {
                     label: "Coastwise Empties",
                     type: "text",
                     placeholder: "[CHECK FOR CW MTYS]"
                 },
-                shorePass: {
-    			    label: "Shore Pass",
-    			    type: "text",
-    			    placeholder: "[I-95]"
-		        },
                 boardingAgent: {
                     label: "Boarding Agent",
                     type: "text",
@@ -275,11 +209,6 @@ www.nortonlilly.com`,
                     label: "Boarding Agent Email",
                     type: "email",
                     placeholder: "[BA EMAIL]"
-                },
-                spoQQ: {
-                    label: "SPO / QQ",
-                    type: "text",
-                    placeholder: "[SPO / QQ]"
                 },
                 enoa: {
                     label: "ENOA",
@@ -306,25 +235,10 @@ www.nortonlilly.com`,
                     type: "text",
                     placeholder: "[N of A]"
                 },
-                vesselCertificates: {
-                    label: "Vessel Certificates",
-                    type: "text",
-                    placeholder: "[VESSEL CERTS]"
-                },
                 storesEffects: {
                     label: "Stores / Effects",
                     type: "text",
                     placeholder: "[CSV]"
-                },
-                entrance: {
-                    label: "Entrance",
-                    type: "text",
-                    placeholder: "[ENTER]"
-                },
-                clearance: {
-                    label: "Clearance",
-                    type: "text",
-                    placeholder: "[CLEAR]"
                 },
 		        ownersItem1: {
                     label: "Owners Item 1",
@@ -541,7 +455,7 @@ Thank you.`
                     template: `Please see detailed COR handover below for --- : 
 
 {{field "vesselName"}} / {{field "terminal"}} {{field "berth"}} {{field "footmark"}}
-{{field "orders"}} SIDE TO
+{{field "sideTo"}} SIDE TO
 POB {{field "pob"}} / OPS {{field "ops"}} / ETD {{field "etd"}}
 PREV: {{field "previousPort"}} / NEXT: {{field "nextPort"}}
 # OF CREW ARRIVAL/DEP: {{field "crewArrival"}} / {{field "crewDeparture"}} ({{field "crewOff"}} OFF / {{field "crewOn"}} ON)
