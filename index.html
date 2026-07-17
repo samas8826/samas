@@ -369,8 +369,8 @@ Please see attached orders for the subject vessel. Thank you.
 Please see updated vessel schedule below:
 
 Terminal - {{field "terminal"}} {{field "berth"}} {{field "footmark"}}
-ETA - {{field "etb"}}
-Working - {{field "ops"}}
+POB - {{field "pob"}}
+OPS - {{field "ops"}}
 ETD - {{field "etd"}}`
                 },
 		{
@@ -637,11 +637,11 @@ Handlebars.registerHelper('tugCompanyEmail', function () {
 const tug = (formData.tugs || "").toLowerCase();
 
 if (tug.includes("moran")) {
-    return "DISPATCHER@CHARLESTONPILOTS.COM; CPSOPS@BELLSOUTH.NET; DCAUSEY1@BELLSOUTH.NET; CHARLESTONOPERATIONS@MORANTUG.COM;";
+    return "DISPATCHER@CHARLESTONPILOTS.COM; CHARLESTONOPERATIONS@MORANTUG.COM; CPSOPS@BELLSOUTH.NET; DCAUSEY1@BELLSOUTH.NET;";
 }
 
 if (tug.includes("mcallister")) {
-    return "DISPATCHER@CHARLESTONPILOTS.COM; CPSOPS@BELLSOUTH.NET; DCAUSEY1@BELLSOUTH.NET; DISPATCHSC@MCALLISTERTOWING.COM;";
+    return "DISPATCHER@CHARLESTONPILOTS.COM; DISPATCHSC@MCALLISTERTOWING.COM; CPSOPS@BELLSOUTH.NET; DCAUSEY1@BELLSOUTH.NET;";
 }
 
 return "DISPATCHER@CHARLESTONPILOTS.COM;";
