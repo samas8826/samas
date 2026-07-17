@@ -365,7 +365,13 @@ VECS - ONLINE {{field "arrivalDate"}}`
                     cc: "CHS-OPS@NORTONLILLY.COM",
                     template: `Good day,
 
-Please see attached orders for the subject vessel. Thank you.`
+Please see attached orders for the subject vessel. Thank you.
+Please see updated vessel schedule below:
+
+Terminal - {{field "terminal"}} {{field "berth"}} {{field "footmark"}}
+ETA - {{field "etb"}}
+Working - {{field "ops"}}
+ETD - {{field "etd"}}`
                 },
 		{
                     id: 7,
@@ -408,6 +414,8 @@ Draft AIR: {{field "arrivalDraftAir"}}m
 HSFO:
 MDO:
 FW:
+Arrival Ballast:
+Estimated Dep. Ballast:
 Estimated Dep. Draft FWD:
 Estimated Dep. Draft AFT:
 Estimated Dep. Air Draft:
